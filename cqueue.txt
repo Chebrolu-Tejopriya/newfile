@@ -1,0 +1,79 @@
+#include <stdio.h>
+
+int cq[4], n = 4, f = 0, r = -1;
+void cqinsert(int cq[], int x)
+{
+    if(((f-r+n)%n == 1) && !((f == 0) && (r == -1)))
+    {
+        printf("circular queue is overflow.\n");
+    }else {
+        if(r == n-1)
+        {
+            r = 0;
+        }else 
+            r = r+1;
+        cq[r] = x;
+    }
+}
+void cqdelete(int cq[])
+{
+    int x;
+    if((f == 0) && (r == -1))
+    {
+        printf("circular queue is underflow.\n");
+    }else{
+        x = cq[f];
+        if(f == r)
+        {
+            f = 0;
+            r = -1;
+        }
+        else if(f == n-1)
+            f = 0;
+        else
+            f = f+1;
+    }
+    printf("Deleted element = %d\n", x);
+}
+void cqdisplay(int cq[])
+{
+    int i;
+    if((f == 0) && (r == -1))
+        printf("circular queue is underflow.\n");
+    else
+    {
+        printf("circular queue contents are:\n");
+        if(f <= r) {
+            for(i = f; i <= r; i++)
+            {
+                printf("%d\n", cq[i]);
+            } 
+        }else {
+            
+            for(i = f; i <= n-1; i++)
+            {
+                printf("%d\n", cq[i]);
+            }
+            if(r < f) {
+                for(i = 0; i <= r; i++)
+                    printf("%d\n", cq[i]);
+            }
+        }
+    }
+}
+void main()
+{
+    cqinsert(cq, 10);
+    cqinsert(cq, 20);
+    cqinsert(cq, 30);
+    cqdisplay(cq);
+    cqdelete(cq);
+    cqinsert(cq, 40);
+    cqinsert(cq, 50);
+    cqinsert(cq, 60);
+    cqdisplay(cq);
+    cqdelete(cq);
+    cqdelete(cq);
+    cqdisplay(cq);
+    cqinsert(cq, 60);
+}
